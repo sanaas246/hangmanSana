@@ -17,6 +17,8 @@ for stage in stages:
     print(f"{stage}")
 
 words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g".split(",")
+slots = []
+
 
 def getWord(wordlist):
     wordIndex = random.randint(0, len(wordlist) - 1)
@@ -29,13 +31,28 @@ def assessGuesses():
     guess = input("Pick a letter: ")
     if guess in word:
         print("present")
+        gueIndex = search(word, guess)
+        print(gueIndex)
+        correct(word, gueIndex)
     else:
         print("not present")
 
 def openspots(word):
-    slots = []
     places = len(word)
     for slot in range(places):
         slots.append("_ ")
     print(slots)
+
+def correct(word, index):
+    print("correct function")
+    slots[index] = word[index]
+    print(slots)
+
+def search(word, guess):
+    for i in range(len(word)):
+        if word[i] == guess:
+            return i
+    return -1
+
+
 assessGuesses()
