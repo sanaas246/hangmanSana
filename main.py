@@ -15,11 +15,14 @@ import random
 stages = ["", "________", "|  |", "|  | ", "|  0 ", "| /|\ ", "| / \ ", "| "]
 for stage in stages:
     print(f"{stage}")
+phase = 0
 
+# List of Words, blank spots and the wrong letters
 words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g".split(",")
 slots = []
+wronglet = []
 
-
+# FUNCTIONS
 def getWord(wordlist):
     wordIndex = random.randint(0, len(wordlist) - 1)
     return wordlist[wordIndex].split(" ")
@@ -28,14 +31,23 @@ def assessGuesses():
     word = getWord(words)
     print(word)
     openspots(word)
-    guess = input("Pick a letter: ")
-    if guess in word:
-        print("present")
-        gueIndex = search(word, guess)
-        print(gueIndex)
-        correct(word, gueIndex)
-    else:
-        print("not present")
+    loop = True
+    while loop:
+        guess = input("Pick a letter: ")
+        if guess in slots: 
+            print("You have already guessed that!")
+            print(slots)
+        elif guess in word:
+            print("present")
+            gueIndex = search(word, guess)
+            correct(word, gueIndex)
+        elif guess in wronglet:
+            print("You have already guessed that!")
+            print(slots)
+        else:
+            print("not present")
+            incorrect(guess)
+
 
 def openspots(word):
     places = len(word)
@@ -48,11 +60,24 @@ def correct(word, index):
     slots[index] = word[index]
     print(slots)
 
+def incorrect(letter):
+    print("incorrect function")
+    wronglet.append(letter)
+    print(wronglet)
+    print(slots)
+    print(stages[phase + 1])
+
 def search(word, guess):
     for i in range(len(word)):
         if word[i] == guess:
             return i
     return -1
+
+# def nextstage():
+#     for stage in range(len(stages)):
+#         stage += 1
+#         return stages[stage]
+
 
 
 assessGuesses()
