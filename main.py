@@ -47,7 +47,7 @@ def assessGuesses():
         else:
             print("not present")
             incorrect(guess)
-
+            phase + 1
 
 def openspots(word):
     places = len(word)
@@ -65,7 +65,7 @@ def incorrect(letter):
     wronglet.append(letter)
     print(wronglet)
     print(slots)
-    print(stages[phase + 1])
+    print(stages[phase])
 
 def search(word, guess):
     for i in range(len(word)):
