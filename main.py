@@ -12,10 +12,11 @@ import random
 # dictionary of all letters, if letter is chosen, letter will appear in dictionary
 
 # Hangman Appearance
-stages = ["", "________", "|  |", "|  | ", "|  0 ", "| /|\ ", "| / \ ", "| "]
-for stage in stages:
-    print(f"{stage}")
-phase = 0
+stages = ["", "________", "________\n|  |", "________\n|  |\n|  | ", "________\n|  |\n|  | \n|  0 ", "________\n|  |\n|  | \n|  0 \n| /|\ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ \n| \nYOU LOST!"]
+# for stage in stages:
+#     print(f"{stage}")
+
+
 
 # List of Words, blank spots and the wrong letters
 words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g".split(",")
@@ -28,26 +29,43 @@ def getWord(wordlist):
     return wordlist[wordIndex].split(" ")
 
 def assessGuesses():
+    slots.clear()
+    wronglet.clear()
+    phase = 0
     word = getWord(words)
     print(word)
     openspots(word)
     loop = True
     while loop:
-        guess = input("Pick a letter: ")
+        guess = input("\nPick a letter: ")
         if guess in slots: 
             print("You have already guessed that!")
             print(slots)
+            print(stages[phase])
         elif guess in word:
-            print("present")
+            print("Correct\n")
             gueIndex = search(word, guess)
             correct(word, gueIndex)
+            print(stages[phase])
         elif guess in wronglet:
             print("You have already guessed that!")
             print(slots)
+            print(stages[phase])
         else:
-            print("not present")
+            print("Incorrect\n")
             incorrect(guess)
-            phase + 1
+            phase += 1
+            print(stages[phase])
+            if phase == 7: 
+                loop = False
+                again = input("\nWant to try again? Please type yes or no: ")
+                if again == "yes":
+                    assessGuesses()
+                elif again == "no":
+                    print("Bye!")
+                else:
+                    print("Please type yes or no. ")
+                    again = input("Want to try again? Please type yes or no: ")
 
 def openspots(word):
     places = len(word)
@@ -56,16 +74,13 @@ def openspots(word):
     print(slots)
 
 def correct(word, index):
-    print("correct function")
     slots[index] = word[index]
     print(slots)
 
 def incorrect(letter):
-    print("incorrect function")
     wronglet.append(letter)
     print(wronglet)
     print(slots)
-    print(stages[phase])
 
 def search(word, guess):
     for i in range(len(word)):
@@ -73,11 +88,6 @@ def search(word, guess):
             return i
     return -1
 
-# def nextstage():
-#     for stage in range(len(stages)):
-#         stage += 1
-#         return stages[stage]
-
-
-
 assessGuesses()
+
+
