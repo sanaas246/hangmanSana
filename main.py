@@ -24,24 +24,29 @@ def assessGuesses():
     phase = 0
     # pick a word and print its slots
     word = getWord(words)
+    print("\nHANGMAN")
     openspots(word)
     # loop to continue guessing
     loop = True
     while loop:
-        guess = input("\nPick a letter: ")
+        guess = input("\nPick a letter: ").lower()
         if guess.isalpha() and len(guess) == 1:
             if guess in slots: 
-                print("You have already guessed that!")
-                print(slots)
+                print("\nYou have already guessed that!\n")
+                spots = ' '.join(slots)
+                print(spots)
                 print(stages[phase])
             elif guess in word:
                 print("Correct\n")
                 gueIndex = search(word, guess)
                 correct(word, gueIndex)
+                wrong = ' '.join(wronglet)
+                print("Wrong letters: ", wrong)
                 print(stages[phase])
             elif guess in wronglet:
-                print("You have already guessed that!")
-                print(slots)
+                print("\nYou have already guessed that!\n")
+                spots = ' '.join(slots)
+                print(spots)
                 print(stages[phase])
             else:
                 print("Incorrect\n")
@@ -64,21 +69,24 @@ def assessGuesses():
         else: 
             print("Please type in one letter")
         
-
 def openspots(word):
     places = len(word)
     for slot in range(places):
         slots.append("_ ")
-    print(slots)
+    spots = ' '.join(slots)
+    print(spots)
 
 def correct(word, index):
     slots[index] = word[index]
-    print(slots)
+    spots = ' '.join(slots)
+    print(spots, "\n")
 
 def incorrect(letter):
     wronglet.append(letter)
-    print(wronglet)
-    print(slots)
+    wrong = ' '.join(wronglet)
+    print("Wrong letters: ", wrong)
+    spots = ' '.join(slots)
+    print(spots)
 
 def search(word, guess):
     for i in range(len(word)):
@@ -88,7 +96,5 @@ def search(word, guess):
 
 assessGuesses()
 
-
-# title for wrong letter list
 # get rid of quotations and brackets
-# display wrong letter list after guessing correct
+# what happens after correct
