@@ -6,7 +6,8 @@ import random
 stages = ["", "________", "________\n|  |", "________\n|  |\n|  | ", "________\n|  |\n|  | \n|  0 ", "________\n|  |\n|  | \n|  0 \n| /|\ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ \n| \nYOU LOST!"]
 
 # List of Words, blank spots and the wrong letters
-words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g".split(",")
+words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g, g o r i l l a, c h i m p a n z e e , m o n k e y, b e a v e r, o r a n g u t a n, a n t e l o p e, b a t".split(",")
+
 slots = []
 wronglet = []
 
@@ -30,28 +31,35 @@ def assessGuesses():
     loop = True
     while loop:
         guess = input("\nPick a letter: ").lower()
+        # if the user input is one lowercase letter then...
         if guess.isalpha() and len(guess) == 1:
+            # if the user input has been used already
             if guess in slots: 
                 print("\nYou have already guessed that!\n")
                 spots = ' '.join(slots)
                 print(spots)
                 print(stages[phase])
+            # if the user input is in the word's string
             elif guess in word:
                 print("Correct\n")
-                gueIndex = search(word, guess)
-                correct(word, gueIndex)
+                # gueIndex = search(word, guess)
+                search(word, guess)
+                # correct(word, gueIndex)
                 wrong = ' '.join(wronglet)
                 print("Wrong letters: ", wrong)
                 print(stages[phase])
+                # if the entire word is guessed
                 if slots == word:
                     loop = False
                     print("\nGood Job! You win!")
                     playagain()
+            # if the guess has been used already
             elif guess in wronglet:
                 print("\nYou have already guessed that!\n")
                 spots = ' '.join(slots)
                 print(spots)
                 print(stages[phase])
+            # if the user selects the wrong letters
             else:
                 print("Incorrect\n")
                 incorrect(guess)
@@ -81,12 +89,7 @@ def openspots(word):
     for slot in range(places):
         slots.append("_ ")
     spots = ' '.join(slots)
-    print(spots)
-
-def correct(word, index):
-    slots[index] = word[index]
-    spots = ' '.join(slots)
-    print(spots, "\n")
+    print(spots)  
 
 def incorrect(letter):
     wronglet.append(letter)
@@ -98,7 +101,10 @@ def incorrect(letter):
 def search(word, guess):
     for i in range(len(word)):
         if word[i] == guess:
-            return i
+            # correct(word,i)
+            slots[i] = word[i]
+            spots = ' '.join(slots)
+    print(spots, "\n")
     return -1
 
 assessGuesses()
