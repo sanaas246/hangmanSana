@@ -43,6 +43,10 @@ def assessGuesses():
                 wrong = ' '.join(wronglet)
                 print("Wrong letters: ", wrong)
                 print(stages[phase])
+                if slots == word:
+                    loop = False
+                    print("\nGood Job! You win!")
+                    playagain()
             elif guess in wronglet:
                 print("\nYou have already guessed that!\n")
                 spots = ' '.join(slots)
@@ -55,20 +59,23 @@ def assessGuesses():
                 print(stages[phase])
                 if phase == 7: 
                     loop = False
-                    againloop = True
-                    while againloop:
-                        again = input("\nWant to try again? Please type yes or no: ")
-                        if again == "yes":
-                            assessGuesses()
-                            againloop = False
-                        elif again == "no":
-                            print("Bye!")
-                            againloop = False
-                        else:
-                            print("Please type yes or no. ") 
+                    playagain()      
         else: 
             print("Please type in one letter")
-        
+
+def playagain():
+    againloop = True
+    while againloop:
+        again = input("\nWant to try again? Please type yes or no: ")
+        if again == "yes":
+            assessGuesses()
+            againloop = False
+        elif again == "no":
+            print("Bye!")
+            againloop = False
+        else:
+            print("Please type yes or no. ")
+
 def openspots(word):
     places = len(word)
     for slot in range(places):
@@ -84,7 +91,7 @@ def correct(word, index):
 def incorrect(letter):
     wronglet.append(letter)
     wrong = ' '.join(wronglet)
-    print("Wrong letters: ", wrong)
+    print("Wrong letters: ", wrong, "\n")
     spots = ' '.join(slots)
     print(spots)
 
@@ -96,5 +103,3 @@ def search(word, guess):
 
 assessGuesses()
 
-# get rid of quotations and brackets
-# what happens after correct
