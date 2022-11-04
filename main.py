@@ -42,9 +42,7 @@ def assessGuesses():
             # if the user input is in the word's string
             elif guess in word:
                 print("Correct\n")
-                # gueIndex = search(word, guess)
                 search(word, guess)
-                # correct(word, gueIndex)
                 wrong = ' '.join(wronglet)
                 print("Wrong letters: ", wrong)
                 print(stages[phase])
@@ -101,7 +99,6 @@ def incorrect(letter):
 def search(word, guess):
     for i in range(len(word)):
         if word[i] == guess:
-            # correct(word,i)
             slots[i] = word[i]
             spots = ' '.join(slots)
     print(spots, "\n")
