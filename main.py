@@ -6,7 +6,6 @@ import random
 stages = ["", "________", "________\n|  |", "________\n|  |\n|  | ", "________\n|  |\n|  | \n|  0 ", "________\n|  |\n|  | \n|  0 \n| /|\ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ ", "________\n|  |\n|  | \n|  0 \n| /|\ \n| / \ \n| \nYOU LOST!"]
 
 # List of Words, blank spots and the wrong letters
-# words = "l i o n,t i g e r,g o a t,h o r s e,d o n k e y,d o g,c a t,p i g, g o r i l l a, c h i m p a n z e e , m o n k e y, b e a v e r, o r a n g u t a n, a n t e l o p e, b a t".split(",")
 words = "lion,tiger,goat,horse,donkey,dog,cat,pig,gorilla,chimpanzee,monkey,beaver,orangutan,antelope,bat".split(",")
 
 slots = []
@@ -14,10 +13,6 @@ wronglet = []
 
 # FUNCTIONS
 # pick a word from the words list
-# def getWord(wordlist):
-#     wordIndex = random.randint(0, len(wordlist) - 1)
-#     return wordlist[wordIndex].split(" ")
-
 def getWord(wordlist):
     wordIndex = random.randint(0, len(wordlist) - 1)
     return list(wordlist[wordIndex])
