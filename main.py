@@ -27,18 +27,21 @@ def assessGuesses():
     word = getWord(words)
     print("\nHANGMAN")
     openspots(word)
+
     # loop to continue guessing
     loop = True
     while loop:
         guess = input("\nPick a letter: ").lower()
         # if the user input is one lowercase letter then...
         if guess.isalpha() and len(guess) == 1:
+            
             # if the user input has been used already
             if guess in slots: 
                 print("\nYou have already guessed that!\n")
                 spots = ' '.join(slots)
                 print(spots)
                 print(stages[phase])
+            
             # if the user input is in the word's string
             elif guess in word:
                 print("Correct\n")
@@ -51,12 +54,14 @@ def assessGuesses():
                     loop = False
                     print("\nGood Job! You win!")
                     playagain()
+            
             # if the guess has been used already
             elif guess in wronglet:
                 print("\nYou have already guessed that!\n")
                 spots = ' '.join(slots)
                 print(spots)
                 print(stages[phase])
+            
             # if the user selects the wrong letters
             else:
                 print("Incorrect\n")
@@ -69,6 +74,8 @@ def assessGuesses():
         else: 
             print("Please type in one letter")
 
+# Helping Functions
+# Play game again
 def playagain():
     againloop = True
     while againloop:
@@ -82,6 +89,7 @@ def playagain():
         else:
             print("Please type yes or no. ")
 
+# Create open slots 
 def openspots(word):
     places = len(word)
     for slot in range(places):
@@ -89,6 +97,7 @@ def openspots(word):
     spots = ' '.join(slots)
     print(spots)  
 
+# Add wrong letters to the wrong letter list
 def incorrect(letter):
     wronglet.append(letter)
     wrong = ' '.join(wronglet)
@@ -96,6 +105,7 @@ def incorrect(letter):
     spots = ' '.join(slots)
     print(spots)
 
+# Seach for a guess in a word
 def search(word, guess):
     for i in range(len(word)):
         if word[i] == guess:
